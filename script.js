@@ -128,7 +128,7 @@ function initFireworks() {
     const particles = [];
     
     // LÍMITE DE PARTÍCULAS para no saturar el móvil
-    const MAX_PARTICLES = isMobile ? 300 : 800;
+    const MAX_PARTICLES = isMobile ? 150 : 800;
     
     // Clase Fuego Artificial
     function Firework(x, y) {

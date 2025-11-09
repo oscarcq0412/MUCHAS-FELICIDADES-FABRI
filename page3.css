@@ -1,0 +1,255 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* ===== PÁGINA 3: CIELO NOCTURNO CON MENSAJE ===== */
+.page2-container {
+    height: 100vh;
+    background: linear-gradient(to bottom, #0c0c1e 0%, #1a1a3e 50%, #2d2d5f 100%);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Escena 3D para estrellas */
+.stars-3d {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    perspective: 500px;
+    transform-style: preserve-3d;
+}
+
+/* Luna */
+.moon {
+    position: absolute;
+    top: 10%;
+    right: 10%;
+    width: clamp(80px, 15vw, 150px);
+    height: clamp(80px, 15vw, 150px);
+    background: radial-gradient(circle at 30% 30%, #fff8dc, #f0e68c);
+    border-radius: 50%;
+    box-shadow: 
+        0 0 50px rgba(255, 255, 255, 0.8),
+        0 0 100px rgba(255, 255, 255, 0.5),
+        inset -10px -10px 20px rgba(200, 200, 200, 0.3);
+    animation: moonGlow 3s ease-in-out infinite;
+}
+
+@keyframes moonGlow {
+    0%, 100% {
+        box-shadow: 
+            0 0 50px rgba(255, 255, 255, 0.8),
+            0 0 100px rgba(255, 255, 255, 0.5),
+            inset -10px -10px 20px rgba(200, 200, 200, 0.3);
+    }
+    50% {
+        box-shadow: 
+            0 0 70px rgba(255, 255, 255, 1),
+            0 0 120px rgba(255, 255, 255, 0.7),
+            inset -10px -10px 20px rgba(200, 200, 200, 0.3);
+    }
+}
+
+/* Estrellas */
+.stars {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    transform-style: preserve-3d;
+}
+
+.star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 
+        0 0 10px rgba(255, 255, 255, 0.8),
+        0 0 20px rgba(255, 255, 255, 0.5),
+        0 0 30px rgba(255, 255, 255, 0.3);
+    animation: twinkle3d 3s ease-in-out infinite;
+    transform-style: preserve-3d;
+}
+
+@keyframes twinkle3d {
+    0%, 100% {
+        opacity: 0.4;
+        transform: scale(1) translateZ(0px);
+        box-shadow: 
+            0 0 10px rgba(255, 255, 255, 0.8),
+            0 0 20px rgba(255, 255, 255, 0.5);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.5) translateZ(50px);
+        box-shadow: 
+            0 0 20px rgba(255, 255, 255, 1),
+            0 0 40px rgba(255, 255, 255, 0.8),
+            0 0 60px rgba(255, 255, 255, 0.5);
+    }
+}
+
+/* Estrellas fugaces */
+.shooting-star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.8);
+    animation: shoot 3s ease-out infinite;
+}
+
+@keyframes shoot {
+    0% {
+        opacity: 1;
+        transform: translateX(0) translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-500px) translateY(300px);
+    }
+}
+
+/* Mensaje sin marco */
+.message-content {
+    max-width: 800px;
+    width: 90%;
+    text-align: center;
+    z-index: 10;
+    animation: fadeIn 2s ease-in;
+    padding: 20px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.message-content h1 {
+    color: #ffd700;
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    margin-bottom: 20px;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+    animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+    0%, 100% {
+        text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+    }
+    50% {
+        text-shadow: 0 0 30px rgba(255, 215, 0, 1), 0 0 40px rgba(255, 215, 0, 0.6);
+    }
+}
+
+.message-content p {
+    color: white;
+    font-size: clamp(0.85rem, 2.2vw, 1.1rem);
+    line-height: 1.6;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
+    font-weight: 300;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .message-content {
+        padding: 15px;
+    }
+    
+    .message-content h1 {
+        margin-bottom: 15px;
+    }
+    
+    .message-content p {
+        margin-bottom: 10px;
+        line-height: 1.5;
+    }
+    
+    .moon {
+        top: 5%;
+        right: 5%;
+    }
+}
+
+@media (max-height: 700px) {
+    .message-content h1 {
+        font-size: clamp(1.5rem, 4vw, 2.5rem);
+        margin-bottom: 10px;
+    }
+    
+    .message-content p {
+        font-size: clamp(0.75rem, 2vw, 1rem);
+        margin-bottom: 8px;
+    }
+}
+
+
+/* --- Mensaje principal con efecto brillante (sin inclinación) --- */
+.message-content p {
+    color: #fff;
+    font-size: clamp(1rem, 2.5vw, 1.6rem);
+    line-height: 1.6;
+    margin: 0 auto 15px;
+    max-width: 700px;
+    font-weight: 400;
+    text-shadow:
+        0 0 10px rgba(255, 255, 255, 0.9),
+        0 0 20px rgba(255, 255, 255, 0.7),
+        0 0 30px rgba(255, 255, 200, 0.5),
+        2px 2px 5px rgba(0, 0, 0, 0.6);
+    animation: textoBrillante 3s ease-in-out infinite alternate;
+}
+
+@keyframes textoBrillante {
+    from {
+        text-shadow:
+            0 0 10px rgba(255, 255, 255, 0.8),
+            0 0 20px rgba(255, 255, 200, 0.6),
+            0 0 40px rgba(255, 255, 150, 0.4);
+    }
+    to {
+        text-shadow:
+            0 0 20px rgba(255, 255, 255, 1),
+            0 0 40px rgba(255, 255, 200, 0.8),
+            0 0 60px rgba(255, 255, 150, 0.6);
+    }
+}
+
+/* --- Mensaje final (¡Feliz cumpleaños!) --- */
+.mensaje-final {
+    margin-top: 25px;
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    color: #ffd700;
+    text-shadow: 0 0 25px rgba(255, 215, 0, 0.9);
+    animation: brilloFinal 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes brilloFinal {
+    from {
+        text-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
+    }
+    to {
+        text-shadow: 0 0 40px rgba(255, 255, 150, 1), 0 0 60px rgba(255, 215, 0, 0.8);
+    }
+}

@@ -1,0 +1,278 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* ===== PÁGINA 1: REGALO ===== */
+.container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #72edf2 0%, #5151e5 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 20px;
+}
+
+/* Globos flotantes */
+.balloons {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 150px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.balloon {
+    position: absolute;
+    width: 50px;
+    height: 65px;
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    animation: float 6s ease-in-out infinite;
+}
+
+.balloon::before {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    width: 2px;
+    height: 25px;
+    background: rgba(255, 255, 255, 0.5);
+    transform: translateX(-50%);
+}
+
+.balloon-red {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+    left: 5%;
+    animation-delay: 0s;
+}
+
+.balloon-blue {
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    left: 20%;
+    animation-delay: 1s;
+}
+
+.balloon-yellow {
+    background: linear-gradient(135deg, #ffd93d, #ffbe0b);
+    left: 35%;
+    animation-delay: 2s;
+}
+
+.balloon-pink {
+    background: linear-gradient(135deg, #ff9ff3, #f368e0);
+    left: 50%;
+    animation-delay: 0.5s;
+}
+
+.balloon-purple {
+    background: linear-gradient(135deg, #c471f5, #9c27b0);
+    left: 65%;
+    animation-delay: 1.5s;
+}
+
+.balloon-green {
+    background: linear-gradient(135deg, #48dbfb, #0abde3);
+    left: 80%;
+    animation-delay: 2.5s;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-30px) rotate(5deg);
+    }
+}
+
+/* Contenido principal */
+.content {
+    text-align: center;
+    z-index: 2;
+    max-width: 600px;
+    width: 100%;
+}
+
+.top-text {
+    color: white;
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+    text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+    margin-bottom: 40px;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.gift-wrapper {
+    perspective: 1000px;
+    margin: 50px 0;
+}
+
+.gift-box {
+    width: clamp(150px, 40vw, 250px);
+    height: clamp(180px, 45vw, 300px);
+    margin: 0 auto;
+    position: relative;
+    transform-style: preserve-3d;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.gift-box:hover {
+    transform: rotateY(10deg) rotateX(5deg) scale(1.05);
+}
+
+.gift-base {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 65%;
+    background: linear-gradient(145deg, #e74c3c, #c0392b);
+    border-radius: 10px;
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.3),
+        inset 0 -5px 20px rgba(0, 0, 0, 0.2),
+        inset 0 5px 20px rgba(255, 255, 255, 0.1);
+}
+
+.gift-base::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 15%;
+    background: linear-gradient(to right, #f1c40f, #f39c12);
+    transform: translateY(-50%);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.gift-base::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 15%;
+    height: 100%;
+    background: linear-gradient(to bottom, #f1c40f, #f39c12);
+    transform: translateX(-50%);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.gift-lid {
+    position: absolute;
+    top: 0;
+    width: 110%;
+    height: 40%;
+    left: -5%;
+    background: linear-gradient(145deg, #e74c3c, #c0392b);
+    border-radius: 10px 10px 5px 5px;
+    box-shadow: 
+        0 -5px 20px rgba(0, 0, 0, 0.2),
+        inset 0 -3px 10px rgba(0, 0, 0, 0.2);
+    animation: lidBounce 2s ease-in-out infinite;
+}
+
+@keyframes lidBounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Moño decorativo */
+.bow {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 60px;
+}
+
+.bow-left, .bow-right {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    background: linear-gradient(145deg, #f1c40f, #f39c12);
+    border-radius: 50% 0 50% 0;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+.bow-left {
+    left: 0;
+    transform: rotate(-45deg);
+}
+
+.bow-right {
+    right: 0;
+    transform: rotate(45deg);
+}
+
+.bow-center {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(145deg, #f1c40f, #f39c12);
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+.bottom-text {
+    color: white;
+    font-size: clamp(1.3rem, 4vw, 2rem);
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    margin-top: 40px;
+    animation: bounce 1.5s ease-in-out infinite;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .balloon {
+        width: 35px;
+        height: 50px;
+    }
+}
+
+@media (max-width: 480px) {
+    .balloons {
+        height: 100px;
+    }
+    
+    .balloon {
+        width: 30px;
+        height: 40px;
+    }
+}

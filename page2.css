@@ -1,0 +1,339 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* ===== PÁGINA 2: CIELO NOCTURNO CON FUEGOS ARTIFICIALES ===== */
+.page2-container {
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #0c0c1e 0%, #1a1a3e 50%, #2d2d5f 100%);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Canvas para fuegos artificiales */
+#fireworksCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 5;
+}
+
+/* Luna */
+.moon {
+    position: absolute;
+    top: 10%;
+    right: 10%;
+    width: clamp(80px, 15vw, 150px);
+    height: clamp(80px, 15vw, 150px);
+    background: radial-gradient(circle at 30% 30%, #fff8dc, #f0e68c);
+    border-radius: 50%;
+    box-shadow: 
+        0 0 50px rgba(255, 255, 255, 0.8),
+        0 0 100px rgba(255, 255, 255, 0.5),
+        inset -10px -10px 20px rgba(200, 200, 200, 0.3);
+    animation: moonGlow 3s ease-in-out infinite;
+}
+
+@keyframes moonGlow {
+    0%, 100% {
+        box-shadow: 
+            0 0 50px rgba(255, 255, 255, 0.8),
+            0 0 100px rgba(255, 255, 255, 0.5),
+            inset -10px -10px 20px rgba(200, 200, 200, 0.3);
+    }
+    50% {
+        box-shadow: 
+            0 0 70px rgba(255, 255, 255, 1),
+            0 0 120px rgba(255, 255, 255, 0.7),
+            inset -10px -10px 20px rgba(200, 200, 200, 0.3);
+    }
+}
+
+/* Estrellas */
+.stars {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle 3s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+    0%, 100% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+}
+
+/* Estrellas fugaces */
+.shooting-star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.8);
+    animation: shoot 3s ease-out infinite;
+}
+
+@keyframes shoot {
+    0% {
+        opacity: 1;
+        transform: translateX(0) translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-500px) translateY(300px);
+    }
+}
+
+/* Título con efecto de fuegos artificiales */
+.fireworks-title {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    text-align: center;
+    width: 90%;
+}
+
+.birthday-text {
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+.birthday-text .word {
+    display: inline-block;
+    background: linear-gradient(45deg, #ff6b6b, #ffd93d, #48dbfb, #ff9ff3, #c471f5, #ff6b6b);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 3s ease infinite, sparkle 1.5s ease-in-out infinite;
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
+    filter: drop-shadow(0 0 20px rgba(255, 107, 107, 0.8))
+            drop-shadow(0 0 40px rgba(255, 217, 61, 0.6))
+            drop-shadow(0 0 60px rgba(72, 219, 251, 0.4));
+}
+
+.birthday-text .word:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.birthday-text .word:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.birthday-text .word:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+.birthday-text .word:nth-child(4) {
+    animation-delay: 0.6s;
+}
+
+@keyframes gradientShift {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+@keyframes sparkle {
+    0%, 100% {
+        transform: scale(1) rotate(0deg);
+        filter: drop-shadow(0 0 20px rgba(255, 107, 107, 0.8))
+                drop-shadow(0 0 40px rgba(255, 217, 61, 0.6));
+    }
+    25% {
+        transform: scale(1.05) rotate(1deg);
+        filter: drop-shadow(0 0 30px rgba(255, 107, 107, 1))
+                drop-shadow(0 0 50px rgba(255, 217, 61, 0.8))
+                drop-shadow(0 0 70px rgba(72, 219, 251, 0.6));
+    }
+    50% {
+        transform: scale(1.1) rotate(-1deg);
+        filter: drop-shadow(0 0 40px rgba(72, 219, 251, 1))
+                drop-shadow(0 0 60px rgba(255, 159, 243, 0.8));
+    }
+    75% {
+        transform: scale(1.05) rotate(1deg);
+        filter: drop-shadow(0 0 30px rgba(255, 159, 243, 1))
+                drop-shadow(0 0 50px rgba(196, 113, 245, 0.8));
+    }
+}
+
+/* Mensaje simple sin recuadro */
+.simple-message {
+    position: absolute;
+    bottom: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 600px;
+    width: 90%;
+    text-align: center;
+    z-index: 10;
+    animation: fadeInUp 2s ease-in;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+.simple-message p {
+    color: white;
+    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+    line-height: 1.8;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+    font-weight: 300;
+    letter-spacing: 0.5px;
+}
+
+.next-button {
+    background: linear-gradient(135deg, #ffd700, #ffed4e);
+    color: #1a1a3e;
+    border: none;
+    padding: 15px 50px;
+    font-size: clamp(1rem, 3vw, 1.3rem);
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.5);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.next-button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(255, 215, 0, 0.7);
+    background: linear-gradient(135deg, #ffed4e, #ffd700);
+}
+
+.next-button:active {
+    transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .simple-message {
+        bottom: 10%;
+    }
+    
+    .moon {
+        top: 5%;
+        right: 5%;
+    }
+    
+    .fireworks-title {
+        top: 8%;
+    }
+}
+
+.simple-message {
+    text-align: center;
+    margin: 30px auto;
+    padding: 15px 20px;
+    max-width: 700px;
+}
+
+/* --- Título amarillo brillante --- */
+.simple-message h1 {
+    color: #ffd700;
+    font-size: clamp(1.6rem, 2.8vw, 2rem);
+    margin-bottom: 10px;
+    text-shadow:
+        0 0 8px rgba(255, 215, 0, 0.8),
+        0 0 15px rgba(255, 255, 150, 0.6),
+        0 0 25px rgba(255, 215, 0, 0.4);
+    animation: brilloTitulo 3s ease-in-out infinite alternate;
+}
+
+@keyframes brilloTitulo {
+    from {
+        text-shadow:
+            0 0 8px rgba(255, 215, 0, 0.7),
+            0 0 18px rgba(255, 255, 150, 0.5);
+    }
+    to {
+        text-shadow:
+            0 0 20px rgba(255, 255, 150, 1),
+            0 0 35px rgba(255, 215, 0, 0.8),
+            0 0 50px rgba(255, 215, 0, 0.6);
+    }
+}
+
+/* --- Texto blanco luminoso más compacto --- */
+.simple-message p {
+    color: #fff;
+    font-size: clamp(0.95rem, 2.2vw, 1.3rem);
+    line-height: 1.4;
+    max-width: 650px;
+    margin: 0 auto 10px;
+    font-weight: 400;
+    text-shadow:
+        0 0 8px rgba(255, 255, 255, 0.9),
+        0 0 18px rgba(255, 255, 255, 0.6),
+        0 0 25px rgba(255, 255, 255, 0.4);
+    animation: brilloTexto 3s ease-in-out infinite alternate;
+    word-wrap: break-word;
+}
+
+@keyframes brilloTexto {
+    from {
+        text-shadow:
+            0 0 8px rgba(255, 255, 255, 0.7),
+            0 0 18px rgba(255, 255, 255, 0.5);
+    }
+    to {
+        text-shadow:
+            0 0 20px rgba(255, 255, 255, 1),
+            0 0 35px rgba(255, 255, 255, 0.8),
+            0 0 50px rgba(255, 255, 255, 0.6);
+    }
+}

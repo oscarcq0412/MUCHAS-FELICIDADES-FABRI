@@ -127,6 +127,10 @@ function initFireworks() {
     const fireworks = [];
     const particles = [];
     
+    // LÍMITE DE FUEGOS ARTIFICIALES TOTALES
+    let fireworkCount = 0;
+    const MAX_FIREWORKS = 10;
+    
     // LÍMITE DE PARTÍCULAS para no saturar el móvil
     const MAX_PARTICLES = isMobile ? 150 : 800;
     
@@ -171,8 +175,8 @@ function initFireworks() {
             y: Math.sin(this.angle) * this.speed
         };
         this.opacity = 1;
-        this.decay = Math.random() * 0.02 + 0.015; // Desaparecen más rápido
-        this.size = Math.random() * 2 + 1.5; // Partículas más pequeñas
+        this.decay = Math.random() * 0.03 + 0.02; // Desaparecen MÁS rápido
+        this.size = Math.random() * 2 + 1; // Partículas más pequeñas
     }
     
     Particle.prototype.update = function() {
@@ -196,18 +200,22 @@ function initFireworks() {
     
     // Crear fuego artificial
     function createFirework() {
+        // Detener si ya se crearon 10 fuegos artificiales
+        if (fireworkCount >= MAX_FIREWORKS) return;
+        
         // No crear si hay demasiadas partículas
         if (particles.length > MAX_PARTICLES) return;
         
         const x = Math.random() * canvas.width;
         const y = Math.random() * canvas.height * 0.4 + 50;
         fireworks.push(new Firework(x, y));
+        fireworkCount++;
     }
     
     // Crear explosión de partículas (REDUCIDO)
     function createParticles(x, y, hue) {
-        // Menos partículas: 20 en móvil, 35 en desktop (antes era 50)
-        const particleCount = isMobile ? 20 : 35;
+        // Mucho menos partículas: 12 en móvil, 30 en desktop
+        const particleCount = isMobile ? 12 : 30;
         
         for (let i = 0; i < particleCount; i++) {
             particles.push(new Particle(x, y, hue));
@@ -243,9 +251,9 @@ function initFireworks() {
         requestAnimationFrame(animate);
     }
     
-    // Crear fuegos artificiales periódicamente (MÁS ESPACIADOS)
-    // Móvil: cada 2 segundos / Desktop: cada 1.2 segundos (antes era 0.8)
-    const fireworkInterval = isMobile ? 2000 : 1200;
+    // Crear fuegos artificiales periódicamente
+    // Cada 5 segundos, máximo 10 fuegos artificiales
+    const fireworkInterval = 5000;
     setInterval(createFirework, fireworkInterval);
     
     // Iniciar animación

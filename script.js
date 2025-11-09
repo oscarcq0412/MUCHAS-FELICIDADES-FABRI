@@ -127,9 +127,10 @@ function initFireworks() {
     const fireworks = [];
     const particles = [];
     
-    // LÍMITE DE FUEGOS ARTIFICIALES TOTALES
-    let fireworkCount = 0;
-    const MAX_FIREWORKS = 10;
+    // LÍMITE DE RONDAS DE FUEGOS ARTIFICIALES
+    let roundCount = 0;
+    const MAX_ROUNDS = 5; // 5 rondas de fuegos artificiales
+    const FIREWORKS_PER_ROUND = 5; // 5 fuegos por ronda
     
     // LÍMITE DE PARTÍCULAS para no saturar el móvil
     const MAX_PARTICLES = isMobile ? 150 : 800;
@@ -200,16 +201,27 @@ function initFireworks() {
     
     // Crear fuego artificial
     function createFirework() {
-        // Detener si ya se crearon 10 fuegos artificiales
-        if (fireworkCount >= MAX_FIREWORKS) return;
-        
         // No crear si hay demasiadas partículas
         if (particles.length > MAX_PARTICLES) return;
         
         const x = Math.random() * canvas.width;
         const y = Math.random() * canvas.height * 0.4 + 50;
         fireworks.push(new Firework(x, y));
-        fireworkCount++;
+    }
+    
+    // Crear una ronda de 5 fuegos artificiales
+    function createFireworkRound() {
+        // Detener si ya se crearon todas las rondas
+        if (roundCount >= MAX_ROUNDS) return;
+        
+        // Crear 5 fuegos artificiales con pequeños intervalos
+        for (let i = 0; i < FIREWORKS_PER_ROUND; i++) {
+            setTimeout(function() {
+                createFirework();
+            }, i * 300); // Cada fuego sale con 0.3 segundos de diferencia
+        }
+        
+        roundCount++;
     }
     
     // Crear explosión de partículas (REDUCIDO)
@@ -287,4 +299,3 @@ if (document.getElementById('page2')) {
 } else if (document.getElementById('page3')) {
     initPage3();
 }
-

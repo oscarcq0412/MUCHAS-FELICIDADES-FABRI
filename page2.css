@@ -34,7 +34,7 @@ body {
     z-index: 5;
 }
 
-/* Luna */
+/* Luna - SIMPLIFICADA PARA MÓVIL */
 .moon {
     position: absolute;
     top: 10%;
@@ -43,25 +43,22 @@ body {
     height: clamp(80px, 15vw, 150px);
     background: radial-gradient(circle at 30% 30%, #fff8dc, #f0e68c);
     border-radius: 50%;
-    box-shadow: 
-        0 0 50px rgba(255, 255, 255, 0.8),
-        0 0 100px rgba(255, 255, 255, 0.5),
-        inset -10px -10px 20px rgba(200, 200, 200, 0.3);
-    animation: moonGlow 3s ease-in-out infinite;
+    box-shadow: 0 0 50px rgba(255, 255, 255, 0.8);
 }
 
-@keyframes moonGlow {
-    0%, 100% {
-        box-shadow: 
-            0 0 50px rgba(255, 255, 255, 0.8),
-            0 0 100px rgba(255, 255, 255, 0.5),
-            inset -10px -10px 20px rgba(200, 200, 200, 0.3);
+/* Animación de luna SOLO en desktop */
+@media (min-width: 769px) {
+    .moon {
+        animation: moonGlow 3s ease-in-out infinite;
     }
-    50% {
-        box-shadow: 
-            0 0 70px rgba(255, 255, 255, 1),
-            0 0 120px rgba(255, 255, 255, 0.7),
-            inset -10px -10px 20px rgba(200, 200, 200, 0.3);
+    
+    @keyframes moonGlow {
+        0%, 100% {
+            box-shadow: 0 0 50px rgba(255, 255, 255, 0.8);
+        }
+        50% {
+            box-shadow: 0 0 70px rgba(255, 255, 255, 1);
+        }
     }
 }
 
@@ -78,17 +75,22 @@ body {
     position: absolute;
     background: white;
     border-radius: 50%;
-    animation: twinkle 3s ease-in-out infinite;
+    opacity: 0.8;
 }
 
-@keyframes twinkle {
-    0%, 100% {
-        opacity: 0.3;
-        transform: scale(1);
+/* Animación de estrellas SOLO en desktop */
+@media (min-width: 769px) {
+    .star {
+        animation: twinkle 3s ease-in-out infinite;
     }
-    50% {
-        opacity: 1;
-        transform: scale(1.2);
+    
+    @keyframes twinkle {
+        0%, 100% {
+            opacity: 0.3;
+        }
+        50% {
+            opacity: 1;
+        }
     }
 }
 
@@ -114,7 +116,7 @@ body {
     }
 }
 
-/* Título con efecto de fuegos artificiales */
+/* Título - SIMPLIFICADO PARA MÓVIL */
 .fireworks-title {
     position: absolute;
     top: 10%;
@@ -137,70 +139,70 @@ body {
     gap: 15px;
 }
 
-.birthday-text .word {
-    display: inline-block;
-    background: linear-gradient(45deg, #ff6b6b, #ffd93d, #48dbfb, #ff9ff3, #c471f5, #ff6b6b);
-    background-size: 300% 300%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: gradientShift 3s ease infinite, sparkle 1.5s ease-in-out infinite;
-    text-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
-    filter: drop-shadow(0 0 20px rgba(255, 107, 107, 0.8))
-            drop-shadow(0 0 40px rgba(255, 217, 61, 0.6))
-            drop-shadow(0 0 60px rgba(72, 219, 251, 0.4));
-}
-
-.birthday-text .word:nth-child(1) {
-    animation-delay: 0s;
-}
-
-.birthday-text .word:nth-child(2) {
-    animation-delay: 0.2s;
-}
-
-.birthday-text .word:nth-child(3) {
-    animation-delay: 0.4s;
-}
-
-.birthday-text .word:nth-child(4) {
-    animation-delay: 0.6s;
-}
-
-@keyframes gradientShift {
-    0%, 100% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
+/* MÓVIL: Sin animaciones pesadas */
+@media (max-width: 768px) {
+    .birthday-text .word {
+        display: inline-block;
+        background: linear-gradient(45deg, #ff6b6b, #ffd93d, #48dbfb);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        filter: drop-shadow(0 0 10px rgba(255, 107, 107, 0.6));
     }
 }
 
-@keyframes sparkle {
-    0%, 100% {
-        transform: scale(1) rotate(0deg);
+/* DESKTOP: Con todas las animaciones */
+@media (min-width: 769px) {
+    .birthday-text .word {
+        display: inline-block;
+        background: linear-gradient(45deg, #ff6b6b, #ffd93d, #48dbfb, #ff9ff3, #c471f5, #ff6b6b);
+        background-size: 300% 300%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: gradientShift 3s ease infinite, sparkle 1.5s ease-in-out infinite;
         filter: drop-shadow(0 0 20px rgba(255, 107, 107, 0.8))
                 drop-shadow(0 0 40px rgba(255, 217, 61, 0.6));
     }
-    25% {
-        transform: scale(1.05) rotate(1deg);
-        filter: drop-shadow(0 0 30px rgba(255, 107, 107, 1))
-                drop-shadow(0 0 50px rgba(255, 217, 61, 0.8))
-                drop-shadow(0 0 70px rgba(72, 219, 251, 0.6));
+
+    .birthday-text .word:nth-child(1) {
+        animation-delay: 0s;
     }
-    50% {
-        transform: scale(1.1) rotate(-1deg);
-        filter: drop-shadow(0 0 40px rgba(72, 219, 251, 1))
-                drop-shadow(0 0 60px rgba(255, 159, 243, 0.8));
+
+    .birthday-text .word:nth-child(2) {
+        animation-delay: 0.2s;
     }
-    75% {
-        transform: scale(1.05) rotate(1deg);
-        filter: drop-shadow(0 0 30px rgba(255, 159, 243, 1))
-                drop-shadow(0 0 50px rgba(196, 113, 245, 0.8));
+
+    .birthday-text .word:nth-child(3) {
+        animation-delay: 0.4s;
+    }
+
+    .birthday-text .word:nth-child(4) {
+        animation-delay: 0.6s;
+    }
+
+    @keyframes gradientShift {
+        0%, 100% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+    }
+
+    @keyframes sparkle {
+        0%, 100% {
+            transform: scale(1);
+            filter: drop-shadow(0 0 20px rgba(255, 107, 107, 0.8));
+        }
+        50% {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 40px rgba(72, 219, 251, 1));
+        }
     }
 }
 
-/* Mensaje simple sin recuadro */
+/* Mensaje simple */
 .simple-message {
     position: absolute;
     bottom: 15%;
@@ -210,7 +212,7 @@ body {
     width: 90%;
     text-align: center;
     z-index: 10;
-    animation: fadeInUp 2s ease-in;
+    animation: fadeInUp 1.5s ease-in;
 }
 
 @keyframes fadeInUp {
@@ -224,14 +226,56 @@ body {
     }
 }
 
+/* Título amarillo - SIMPLIFICADO PARA MÓVIL */
+.simple-message h1 {
+    color: #ffd700;
+    font-size: clamp(1.6rem, 2.8vw, 2rem);
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+}
+
+/* Animación de título SOLO en desktop */
+@media (min-width: 769px) {
+    .simple-message h1 {
+        animation: brilloTitulo 3s ease-in-out infinite alternate;
+    }
+    
+    @keyframes brilloTitulo {
+        from {
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.7);
+        }
+        to {
+            text-shadow: 0 0 20px rgba(255, 255, 150, 1);
+        }
+    }
+}
+
+/* Texto blanco - SIMPLIFICADO PARA MÓVIL */
 .simple-message p {
-    color: white;
-    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
-    line-height: 1.8;
-    margin-bottom: 30px;
-    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
-    font-weight: 300;
-    letter-spacing: 0.5px;
+    color: #fff;
+    font-size: clamp(0.95rem, 2.2vw, 1.3rem);
+    line-height: 1.4;
+    max-width: 650px;
+    margin: 0 auto 10px;
+    font-weight: 400;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+    word-wrap: break-word;
+}
+
+/* Animación de texto SOLO en desktop */
+@media (min-width: 769px) {
+    .simple-message p {
+        animation: brilloTexto 3s ease-in-out infinite alternate;
+    }
+    
+    @keyframes brilloTexto {
+        from {
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
+        }
+        to {
+            text-shadow: 0 0 20px rgba(255, 255, 255, 1);
+        }
+    }
 }
 
 .next-button {
@@ -273,67 +317,10 @@ body {
     .fireworks-title {
         top: 8%;
     }
-}
-
-.simple-message {
-    text-align: center;
-    margin: 30px auto;
-    padding: 15px 20px;
-    max-width: 700px;
-}
-
-/* --- Título amarillo brillante --- */
-.simple-message h1 {
-    color: #ffd700;
-    font-size: clamp(1.6rem, 2.8vw, 2rem);
-    margin-bottom: 10px;
-    text-shadow:
-        0 0 8px rgba(255, 215, 0, 0.8),
-        0 0 15px rgba(255, 255, 150, 0.6),
-        0 0 25px rgba(255, 215, 0, 0.4);
-    animation: brilloTitulo 3s ease-in-out infinite alternate;
-}
-
-@keyframes brilloTitulo {
-    from {
-        text-shadow:
-            0 0 8px rgba(255, 215, 0, 0.7),
-            0 0 18px rgba(255, 255, 150, 0.5);
-    }
-    to {
-        text-shadow:
-            0 0 20px rgba(255, 255, 150, 1),
-            0 0 35px rgba(255, 215, 0, 0.8),
-            0 0 50px rgba(255, 215, 0, 0.6);
-    }
-}
-
-/* --- Texto blanco luminoso más compacto --- */
-.simple-message p {
-    color: #fff;
-    font-size: clamp(0.95rem, 2.2vw, 1.3rem);
-    line-height: 1.4;
-    max-width: 650px;
-    margin: 0 auto 10px;
-    font-weight: 400;
-    text-shadow:
-        0 0 8px rgba(255, 255, 255, 0.9),
-        0 0 18px rgba(255, 255, 255, 0.6),
-        0 0 25px rgba(255, 255, 255, 0.4);
-    animation: brilloTexto 3s ease-in-out infinite alternate;
-    word-wrap: break-word;
-}
-
-@keyframes brilloTexto {
-    from {
-        text-shadow:
-            0 0 8px rgba(255, 255, 255, 0.7),
-            0 0 18px rgba(255, 255, 255, 0.5);
-    }
-    to {
-        text-shadow:
-            0 0 20px rgba(255, 255, 255, 1),
-            0 0 35px rgba(255, 255, 255, 0.8),
-            0 0 50px rgba(255, 255, 255, 0.6);
+    
+    /* Desactivar hover en móviles para mejor rendimiento */
+    .next-button:hover {
+        transform: none;
+        box-shadow: 0 10px 30px rgba(255, 215, 0, 0.5);
     }
 }

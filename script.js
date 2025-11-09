@@ -27,8 +27,12 @@ function initNightSky() {
     starsContainer.className = 'stars';
     container.appendChild(starsContainer);
     
+    // Detectar si es móvil
+    const isMobile = window.innerWidth < 768;
+    const starCount = isMobile ? 50 : 150; // Menos estrellas en móvil
+    
     // Generar estrellas aleatorias
-    for (let i = 0; i < 150; i++) {
+    for (let i = 0; i < starCount; i++) {
         const star = document.createElement('div');
         star.className = 'star';
         star.style.width = Math.random() * 3 + 'px';
@@ -44,23 +48,25 @@ function initNightSky() {
     moon.className = 'moon';
     container.appendChild(moon);
     
-    // Crear estrellas fugaces
-    function createShootingStar() {
-        const shootingStar = document.createElement('div');
-        shootingStar.className = 'shooting-star';
-        shootingStar.style.left = Math.random() * 100 + '%';
-        shootingStar.style.top = Math.random() * 50 + '%';
-        shootingStar.style.animationDuration = (Math.random() * 2 + 2) + 's';
-        container.appendChild(shootingStar);
+    // Crear estrellas fugaces (solo si no es móvil)
+    if (!isMobile) {
+        function createShootingStar() {
+            const shootingStar = document.createElement('div');
+            shootingStar.className = 'shooting-star';
+            shootingStar.style.left = Math.random() * 100 + '%';
+            shootingStar.style.top = Math.random() * 50 + '%';
+            shootingStar.style.animationDuration = (Math.random() * 2 + 2) + 's';
+            container.appendChild(shootingStar);
+            
+            setTimeout(function() {
+                shootingStar.remove();
+            }, 5000);
+        }
         
-        setTimeout(function() {
-            shootingStar.remove();
-        }, 5000);
+        // Crear estrella fugaz cada 5 segundos (antes era 3)
+        setInterval(createShootingStar, 5000);
+        createShootingStar();
     }
-    
-    // Crear estrella fugaz cada 3 segundos
-    setInterval(createShootingStar, 3000);
-    createShootingStar(); // Primera estrella inmediata
 }
 
 // ===== PÁGINA 2: MÚSICA Y NAVEGACIÓN =====
@@ -87,7 +93,6 @@ function initPage2() {
     // Reproducir música cuando vuelves atrás con el navegador
     window.addEventListener('pageshow', function(event) {
         if (event.persisted) {
-            // La página fue restaurada desde la cache (botón atrás)
             playMusic();
         }
     });
@@ -101,7 +106,7 @@ function initPage2() {
     }
 }
 
-// ===== FUEGOS ARTIFICIALES =====
+// ===== FUEGOS ARTIFICIALES OPTIMIZADOS =====
 function initFireworks() {
     const canvas = document.getElementById('fireworksCanvas');
     if (!canvas) return;
@@ -109,6 +114,9 @@ function initFireworks() {
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+    
+    // Detectar si es móvil
+    const isMobile = window.innerWidth < 768;
     
     // Redimensionar canvas
     window.addEventListener('resize', function() {
@@ -118,6 +126,9 @@ function initFireworks() {
     
     const fireworks = [];
     const particles = [];
+    
+    // LÍMITE DE PARTÍCULAS para no saturar el móvil
+    const MAX_PARTICLES = isMobile ? 300 : 800;
     
     // Clase Fuego Artificial
     function Firework(x, y) {
@@ -160,8 +171,8 @@ function initFireworks() {
             y: Math.sin(this.angle) * this.speed
         };
         this.opacity = 1;
-        this.decay = Math.random() * 0.02 + 0.01;
-        this.size = Math.random() * 3 + 2;
+        this.decay = Math.random() * 0.02 + 0.015; // Desaparecen más rápido
+        this.size = Math.random() * 2 + 1.5; // Partículas más pequeñas
     }
     
     Particle.prototype.update = function() {
@@ -185,14 +196,19 @@ function initFireworks() {
     
     // Crear fuego artificial
     function createFirework() {
+        // No crear si hay demasiadas partículas
+        if (particles.length > MAX_PARTICLES) return;
+        
         const x = Math.random() * canvas.width;
-        const y = Math.random() * canvas.height * 0.4 + 50; // Parte superior
+        const y = Math.random() * canvas.height * 0.4 + 50;
         fireworks.push(new Firework(x, y));
     }
     
-    // Crear explosión de partículas
+    // Crear explosión de partículas (REDUCIDO)
     function createParticles(x, y, hue) {
-        const particleCount = 50;
+        // Menos partículas: 20 en móvil, 35 en desktop (antes era 50)
+        const particleCount = isMobile ? 20 : 35;
+        
         for (let i = 0; i < particleCount; i++) {
             particles.push(new Particle(x, y, hue));
         }
@@ -200,7 +216,7 @@ function initFireworks() {
     
     // Animar
     function animate() {
-        ctx.fillStyle = 'rgba(12, 12, 30, 0.1)';
+        ctx.fillStyle = 'rgba(12, 12, 30, 0.15)'; // Rastro más marcado
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         
         // Actualizar y dibujar fuegos artificiales
@@ -227,8 +243,10 @@ function initFireworks() {
         requestAnimationFrame(animate);
     }
     
-    // Crear fuegos artificiales periódicamente
-    setInterval(createFirework, 800);
+    // Crear fuegos artificiales periódicamente (MÁS ESPACIADOS)
+    // Móvil: cada 2 segundos / Desktop: cada 1.2 segundos (antes era 0.8)
+    const fireworkInterval = isMobile ? 2000 : 1200;
+    setInterval(createFirework, fireworkInterval);
     
     // Iniciar animación
     animate();
